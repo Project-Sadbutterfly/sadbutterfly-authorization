@@ -30,4 +30,24 @@ module.exports = class Authorization {
           console.log('Authorization error: ', error);
     });
   }
+
+  /**
+   * @description By supplying the old accesstoken and the refreshtoken that came with it, we will be able to get a new non-expired accesstoken.
+   * @name getNewAccessTokenForUser
+   * @function
+   * @param {string} oldAccessToken used to retrieve a new accessToken that is not expired.
+   * @param {string} refreshToken used to retrieve a new access token .
+   */
+  getNewAccessTokenForUser(oldAccessToken, refreshToken) {
+    this.spotifyApi.setAccessToken(oldAccessToken);
+    this.spotifyApi.setRefreshToken(refreshToken);
+    return this.spotifyApi.refreshAccessToken().then((data) => {
+          console.log('The access token has been refreshed!');
+          return data.body['access_token'];
+        }, (err) => {
+          console.log('Could not refresh access token', err);
+        });
+  }
+
+
 };
