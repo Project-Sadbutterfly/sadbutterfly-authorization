@@ -22,12 +22,11 @@ module.exports = class Authorization {
     console.log('Authorization call', authorizationCode);
     this.spotifyApi.authorizationCodeGrant(authorizationCode).then(
         function (data) {
-
           const access_token = data.body['access_token'];
           const refresh_token = data.body['refresh_token'];
           mongoService.saveUserCredentials(access_token,refresh_token,process.env.MONGODB_DATABASE_NAME,process.env.MONGODB_AUTHORIZATION_COLLECTION_NAME)
         }).catch(error => {
-          console.log('Authorization error: ', error);
+          console.error('Authorization error: ', error);
     });
   }
 
@@ -42,12 +41,9 @@ module.exports = class Authorization {
     this.spotifyApi.setAccessToken(oldAccessToken);
     this.spotifyApi.setRefreshToken(refreshToken);
     return this.spotifyApi.refreshAccessToken().then((data) => {
-          console.log('The access token has been refreshed!');
           return data.body['access_token'];
         }, (err) => {
-          console.log('Could not refresh access token', err);
+          console.error('Could not refresh access token', err);
         });
   }
-
-
 };

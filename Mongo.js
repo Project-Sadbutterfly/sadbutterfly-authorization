@@ -54,7 +54,6 @@ module.exports = class MongoService {
     let client = await this.mongoClient.connect(this.url, {useNewUrlParser: true});
     let db = client.db(this.databaseName);
     const user = { accessToken, refreshToken };
-
     try {
       return await db.collection(this.collectionName).insertOne(user);
     }
@@ -74,7 +73,6 @@ module.exports = class MongoService {
      let client = await this.mongoClient.connect(this.url, {useNewUrlParser: true});
      let db = client.db(this.databaseName);
      var query = {accessToken: accessTokenFromUser};
-     
      try {
        return await db.collection(this.collectionName).findOne(query);
      }
@@ -98,7 +96,6 @@ module.exports = class MongoService {
     let db = client.db(this.databaseName);
     const userIdQuery = { _id: userId };
     const newAccessTokenForUserWithUserId = { $set: {accessToken: newAccessToken } };
-
     try {
       return await db.collection(this.collectionName).updateOne(userIdQuery, newAccessTokenForUserWithUserId);
     }
