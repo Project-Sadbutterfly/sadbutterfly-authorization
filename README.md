@@ -1,1 +1,1 @@
-# sadbutterfly-authorization
+# sadbutterfly-authorization [![Build Status](https://travis-ci.com/Project-Sadbutterfly/sadbutterfly-authorization.svg?branch=master)](https://travis-ci.com/Project-Sadbutterfly/sadbutterfly-authorization)
